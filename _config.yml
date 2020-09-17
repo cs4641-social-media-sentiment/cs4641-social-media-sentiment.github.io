@@ -1,7 +1,7 @@
 # Setup
-title: Noir
-tagline: a dark mode friendly Jekyll theme
-url: https://noir.essentialenemy.com
+title: CS 4641 - Social Media Sentiment Analysis
+tagline: Nora Hong, Kush Singh, Jason Fan, Sidartha Rakuram
+url: https://cs4641-social-media-sentiment.github.io
 paginate: 1
 baseurl: ""
 permalink: :title/
