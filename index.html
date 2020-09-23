@@ -5,17 +5,46 @@ title: Home
 
 <div id="background">
   <h1 class="post-title"> Background </h1>
+  <p> 
+    The COVID-19 pandemic has placed a lot of stress on people. It’s important to monitor the potential effects not only on physical wellbeing but also on mental health. Even though one may not be physically ill, the pressures of a pandemic can lead to strained relationships, a sense of isolation, and anxiety for the future. Especially since many individuals are currently staying at home, social media has become an increasingly important center for sharing opinions and voicing frustrations. Our group is looking to determine a relationship between the number of global Covid-19 cases and the sentiments of messages on Twitter; this can shed a light on how the epidemic is affecting society from a psychological point of view.
+  </p>
 </div>
 <div id="methods">
   <h1 class="post-title"> Methods </h1>
+  <p> 
+    We intend to use the following datasets: 
+    <ul>
+      <li><a href="https://www.kaggle.com/cosmos98/twitter-and-reddit-sentimental-analysis-dataset">Twitter and Reddit Sentimental analysis Dataset</a></li>
+      <li><a href="https://www.kaggle.com/hgultekin/covid19-stream-data">Covid-19 Coronavirus Dataset Worldwide</a></li>
+      <li><a href="https://developer.twitter.com/en">Twitter API for Tweets</a></li>
+    </ul>
+    The datasets we plan on using are from Kaggle which comes with the benefits of preliminary standardization and dataset cleaning. We plan to train our model with a normal set of Twitter posts and then test with sample data that correlates directly to the timeframe of the COVID pandemic. We plan to randomly select around 10% of tweets for both the training and testing in order to keep a cap on the size of our data sets. 
+  </p>
+  <p>
+    Our first planned approach is using Naive Bayes Classifier, a probabilistic model that determines textual context from trained features.
+  </p>
+  <p>
+    Another technique we intend to apply is recurrent neural networks to process tweets to obtain their sentiment value. These models process variable length inputs, which can be used to capture word context in order to determine the overall sentiment of a message.
+  </p>
 </div> 
 <div id="results">
   <h1 class="post-title"> Results </h1>
+  <p>
+    Our team is looking to determine if there is a correlation between COVID cases and the overall mental health of Twitter users through social media sentiment analysis. This would allow for us to see if this pandemic has had a statistically significant effect on the mental well being of the nation as a whole, and draw conclusions on what courses of action can be taken.
+  </p>
 </div> 
 <div id="discussion">
   <h1 class="post-title"> Discussion </h1>
+  <p>
+    In the best case scenario, we would be able to define a correlation between social media sentiment trends and increases in Covid-19 cases over time. This would help verify that the pandemic has had a significant impact on mental health that needs to be addressed, and if it can provide concrete data to health officials and allow them to take further corrective action. If this project is successful, the results can also be applied moving forward in the case of similar situations in the future to help predict pandemics. These methods can also potentially be used to scrape keywords related to physical health and other ailments to see if social media can be used to predict the early onset of a pandemic, potentially opening up a new avenue for exploration.
+  </p>
 </div> 
 <div id="references">
   <h1 class="post-title"> References </h1>
+  <ul>
+    <li><a href="http://cs229.stanford.edu/proj2012/MaZhang-LearningToDetectInformationOutbreaksInSocialNetworks.pdf">Learning to Detect Information Outbreaks in Social Networks</a></li>
+    <li><a href="http://cs229.stanford.edu/proj2012/ZarghamNassirpourNasiri-ElectronicDevicesSalesPredictionUsingSocialMediaSentimentAnalysis.pdf">Electronic Devices Sales Prediction Using Social Media Sentiment Analysis</a></li>
+    <li><a href="https://academic.microsoft.com/paper/40549020/reference/search?q=Twitter%20as%20a%20Corpus%20for%20Sentiment%20Analysis%20and%20Opinion%20Mining&qe=Or(Id%253D2147880316%252CId%253D2097726431%252CId%253D2166706824%252CId%253D1574901103%252CId%253D2022204871%252CId%253D2115023510%252CId%253D2144378002%252CId%253D2087665422%252CId%253D2110278938%252CId%253D33990384%252CId%253D2403515192%252CId%253D1509129286%252CId%253D2041905826%252CId%253D90118760%252CId%253D2041404167)&f=&orderBy=0">Twitter as a Corpus for Sentiment Analysis and Opinion Mining</a></li>
+  </ul>
 </div> 
 
