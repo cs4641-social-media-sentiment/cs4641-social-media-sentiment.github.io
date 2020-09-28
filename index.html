@@ -4,7 +4,11 @@ title: Home
 ---
 <div id="summary">
   <h1 class="post-title"> Summary Figure </h1>
-  <img src="{{ site.baseurl }}/assets/summary-figure.png" />
+  <picture>
+    <source srcset="{{ site.baseurl }}/assets/summary-figure-bg.png" media="(prefers-color-scheme: dark)"/>
+    <img src="{{ site.baseurl }}/assets/summary-figure.png" />
+  </picture>
+  
 </div>
 <div id="background">
   <h1 class="post-title"> Background </h1>
