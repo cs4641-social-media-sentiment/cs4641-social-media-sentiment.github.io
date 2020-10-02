@@ -28,7 +28,10 @@ title: Home
     The datasets we plan on using are from Kaggle which comes with the benefits of preliminary standardization and dataset cleaning. We plan to train our model with a normal set of Twitter posts and then test with sample data that correlates directly to the timeframe of the Covid-19 pandemic. We plan to randomly select around 10% of tweets for both the training and testing in order to keep a cap on the size of our data sets. 
   </p>
   <p>
-    Our first planned approach is using Naive Bayes Classifier, a probabilistic model that determines textual context from trained features.
+    For our unsupervised learning approach, we are planning to utilize a natural language encoder (like BERT) to featurize a dataset consisting of tweets and then performing an unsupervised clustering algorithm upon the feature-set to determine what certain tweet clusters have in common.
+  </p>
+  <p>
+    Our first supervised learning approach is using Naive Bayes Classifier, a probabilistic model that determines textual context from trained features.
   </p>
   <p>
     Another technique we intend to apply is recurrent neural networks to process tweets to obtain their sentiment value. These models process variable length inputs, which can be used to capture word context in order to determine the overall sentiment of a message.
