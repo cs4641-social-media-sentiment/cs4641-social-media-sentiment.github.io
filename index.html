@@ -37,11 +37,11 @@ title: Home
     Another technique we intend to apply is recurrent neural networks to process tweets to obtain their sentiment value. These models process variable length inputs, which can be used to capture word context in order to determine the overall sentiment of a message.
   </p>
 </div> 
-<div id="results">
-  <h1 class="post-title"> Results </h1>
-    <h3>Unsupervised Learning</h3>
+<div id="unsupervised">
+  <h1 class="post-title"> Unsupervised Learning </h1>
+    <h3>Results</h3>
     <p>
-      For our unsupervised learning approach, we used a natural language encoder called Bidirectional Encoder Representations from Transformers (BERT) to featurize a dataset consisting of COVID-19 related tweets. We then performed two different unsupervised clustering algorithms, K-Means and Gaussian Mixture Models, upon the feature-set to determine what certain tweet clusters have in common. Additionally, we featurized and clustered a labeled Twitter sentiment dataset (without looking at the labels) for comparison, to determine whether the tweets truly were being clustered by sentiment.
+      For our unsupervised learning approach, we used a natural language encoder called Bidirectional Encoder Representations from Transformers (BERT) to featurize a dataset consisting of Covid-19 related tweets. We then performed two different unsupervised clustering algorithms, K-Means and Gaussian Mixture Models, upon the feature-set to determine what certain tweet clusters have in common. Additionally, we featurized and clustered a labeled Twitter sentiment dataset (without looking at the labels) for comparison, to determine whether the tweets truly were being clustered by sentiment.
     </p>
     <p>
       Our primary dataset was a <a href="https://www.kaggle.com/gpreda/covid19-tweets">Kaggle dataset</a> consisting of tweets from the “#covid19” hashtag. Each datapoint had thirteen features but for this analysis we only pulled the "text" feature from the csv file since the other attributes like username and user follower count were irrelevant to our subject matter. To process the input data, we also stripped a trailing URL from the end of each entry (which was originally part of the dataset) in order to decrease noise from our results and remove any potential confounding factors. 
@@ -63,18 +63,71 @@ title: Home
       For K-means, we could not identify an “elbow” when plotting the number of clusters to the objective function value (we went up to 100 clusters). This shows us that the tweets are about vastly different topics and subject to noise.
     </p>
     <img src="{{ site.baseurl }}/assets/unsupervised-results-5.png" />
+    <h3>Discussion</h3>
+    <p>
+      We found that for our sentiment labeled tweet data, the tweets were divided into three distinct clusters, split by a variable on the x axis. This initially seemed very promising, as our dataset was already labelled based on sentiment on a scale of -1 to 1, which corresponded directly to what our picture showed at first glance. However, upon further inspection, when we compared the labels our clustering gave to the ground truth labels, we found that the predictions had an accuracy of at most 33% every time. This meant that while our model was clustering on some value, it clearly was not clustering around social media sentiment, as its guesses for the tweet sentiments were no better than performing a random selection out of the possible three groupings. Upon further inspection of the tweets themselves, we could not find any real clear indicators on what our model could be clustering on. This was true for both GMM and k-means, as we found from our analysis that both algorithms resulted in clustering accuracy similar to random guesses, meaning that at least in the problem of predicting social media sentiment, our model was unsuccessful.
+    </p>
+    <p>
+      This result wasn’t entirely unexpected since unsupervised learning on sentiment analysis tends to be inconclusive. Even though we weren’t able to draw specific conclusions from the clustering algorithm, we were able to achieve a deeper understanding of our dataset and the BERT language encoder which we plan to use in our supervised learning portion. We are optimistic that supervised learning will yield better results.
+    </p>
+    <p>
+      In regards to how we could further this investigation, we could figure out how to cluster the tweets by the meaning which would require access to a lot more tweets. However, a consideration that our group encountered was resource restrictions. We performed our training on Google Colabotory’s free version, and found that attempting to process and train on more than two thousand tweets from both datasets caused crashes due to a lack of RAM.
+    </p>
 </div> 
-<div id="discussion">
-  <h1 class="post-title"> Discussion </h1>
-  <h3>Unsupervised Learning</h3>
+<div id="supervised">
+  <h1 class="post-title"> Supervised Learning </h1>
+  <h3>Results</h3>
+  <h4>Model 1: Naive Bayes</h4>
   <p>
-    We found that for our sentiment labeled tweet data, the tweets were divided into three distinct clusters, split by a variable on the x axis. This initially seemed very promising, as our dataset was already labelled based on sentiment on a scale of -1 to 1, which corresponded directly to what our picture showed at first glance. However, upon further inspection, when we compared the labels our clustering gave to the ground truth labels, we found that the predictions had an accuracy of at most 33% every time. This meant that while our model was clustering on some value, it clearly was not clustering around social media sentiment, as its guesses for the tweet sentiments were no better than performing a random selection out of the possible three groupings. Upon further inspection of the tweets themselves, we could not find any real clear indicators on what our model could be clustering on. This was true for both GMM and k-means, as we found from our analysis that both algorithms resulted in clustering accuracy similar to random guesses, meaning that at least in the problem of predicting social media sentiment, our model was unsuccessful.
+    Our first attempt used Naive Bayes as a classifier. In order for our dataset to be accepted into the model, we first ran the tweets through a feature vectorizer called count vectorizer which counts the appearances of each word in one string of text. We ran the data on Multinomial, Bernoulli, and Complement Naive Bayes with the Bernoulli model resulting in the best accuracy due to it being suitable for discrete features similar to our sentiment label values. 
   </p>
   <p>
-    This result wasn’t entirely unexpected since unsupervised learning on sentiment analysis tends to be inconclusive. Even though we weren’t able to draw specific conclusions from the clustering algorithm, we were able to achieve a deeper understanding of our dataset and the BERT language encoder which we plan to use in our supervised learning portion. We are optimistic that supervised learning will yield better results.
+    We trained the model with 7500 data points and then validated with 2500 data points. This resulted in our highest accuracy being about 74% which was acceptable but we wanted to see if there was another model that could raise our sentiment analysis accuracy.
+  </p>
+  <img src="{{ site.baseurl }}/assets/supervised-results-1.png" />
+  <h4>Model 2: BERT and Neural Networks</h4>
+  <img src="{{ site.baseurl }}/assets/supervised-results-2.png" />
+  <p>
+    Our second attempt used a more complicated classifier which is based around BERT. BERT is first used to vectorize the tweets and then used as a part of a neural network to classify each of the vectorized tweets. BERT’s advantage lies in that it is able to generate representations of each word based on other words in the sentence and that it is pretrained.
   </p>
   <p>
-    In regards to how we could further this investigation, we could figure out how to cluster the tweets by the meaning which would require access to a lot more tweets. However, a consideration that our group encountered was resource restrictions. We performed our training on Google Colabotory’s free version, and found that attempting to process and train on more than two thousand tweets from both datasets caused crashes due to a lack of RAM.
+    This network is made up of an input layer, hidden layer, and output layer that uses embeddings to determine sentiment values. The bert_en_uncased model we used has L=12 hidden layers (i.e., Transformer blocks), a hidden size of H=768, and A=12 attention heads.
+  </p>
+  <p>
+    We trained the model with 40,000 tweets and validated with 20,000. The results for this classifier were much more promising with an accuracy value of 95%. Due to the higher accuracy, we decided to use this model to classify our Covid-19 tweets. 
+  </p>
+  <h5>Classification Results and Analysis</h5>
+  <p>
+    With our validation dataset, we achieved the following results:
+  </p>
+  <img src="{{ site.baseurl }}/assets/supervised-results-3.png" />
+  <p>
+    For our Covid-19 dataset, we found a corpus of global tweets taken between March 29th and April 30th with the hashtags #coronavirus, #coronavirusoutbreak, #coronavirusPandemic, #covid19, #covid_19, #epitwitter, and #ihavecorona. From about 11 April, the dataset also included the following additional hashtags: #StayHomeStaySafe, #TestTraceIsolate.
+  </p>
+  <p>
+    We randomly sampled 10,000 tweets from every day and classified them with the BERT Neural Network, as discussed above. Each tweet was given the label -1, 0, or 1, corresponding to negative, neutral, and positive respectively. 
+  </p>
+  <p>
+    To visualize the sentiment and how it changed over the month, we graphed the average sentiment for every day, as well as a bar graph showing the proportion of tweets that were labeled positive, negative, and neutral. These graphs are shown below. 
+  </p>
+  <img src="{{ site.baseurl }}/assets/supervised-results-4.png" />
+  <span class="figure-title">Figure 1. Bar Graph of Daily Twitter Sentiment Distribution</span>
+  <img src="{{ site.baseurl }}/assets/supervised-results-5.png" />
+  <span class="figure-title">Figure 2. Line Graph of Average Twitter Sentiment Trends and Daily New Confirmed Covid-19 Cases</span>
+  <img src="{{ site.baseurl }}/assets/supervised-results-6.png" />
+  <span class="figure-title">Figure 3. Covid-19 Sentiment vs. Daily New Confirmed Covid-19 Cases</span>
+  <h3>Discussion</h3>
+  <p>
+    From the two line graphs displaying sentiment and Covid-19 trends (Figure 2), we weren’t able to draw any specific conclusions relating to correlation. Sentiment values didn’t seem to be steadily decreasing as a result of the overall increase in cases which disproves our original theory that an increase in cases would cause a negative impact on social media sentiment. This can also be seen in the scatter plot upon which we took the daily new Covid-19 cases and plotted them against the average twitter sentiment for that day (Figure 3). This plot appeared to be very random and did not show any clear trends or correlations, leading us to conclude that no such correlation existed.
+  </p>
+  <p>
+    The average daily sentiments from this time frame are also largely neutral (Figure 1) which can be attributed to a multitude of reasons. First, and foremost is the fact that Twitter is used by different people for different purposes. While some people use it to simply report or propagate information, others instead use it to engage in discussion, and yet others simply treat it as a record of their thoughts at any given moment. While the latter two groups are likely to make emotionally charged tweets, tweets in the first group tend towards being more neutral. This large amount of neutral tweets muddles the average scores, pushing them towards zero. 
+  </p>
+  <p>
+    Additionally, tweets intrinsically contain a large amount of noise, since users can employ slang, emojis, hashtags, and even pictures to convey ideas. These prove to be difficult for our model, which was trained only on text, to understand and score appropriately. 
+  </p>
+  <p>
+    Finally, our classifier assigns a label to every single tweet, despite the confidence, by returning the label with the highest probability. While this might be fine for the vast majority of cases, there could still be a noticeable proportion of the three hundred and thirty thousand tweets we classified that were ambiguously classified or improperly classified, thereby impacting our final results. In general, since classifying the sentiment of tweets can be difficult even for humans, it’s difficult to get an exact handle on how accurately our model classified our test set. 
   </p>
 </div> 
 <div id="references">
