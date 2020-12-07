@@ -79,7 +79,7 @@ title: Home
   <h3>Results</h3>
   <h4>Model 1: Naive Bayes</h4>
   <p>
-    Our first attempt used Naive Bayes as a classifier. In order for our dataset to be accepted into the model, we first ran the tweets through a feature vectorizer called count vectorizer which counts the appearances of each word in one string of text. We ran the data on Multinomial, Bernoulli, and Complement Naive Bayes with the Bernoulli model resulting in the best accuracy due to it being suitable for discrete features similar to our sentiment label values. 
+    Our first attempt used Naive Bayes as a classifier. In order for our dataset to be accepted into the model, we first ran the tweets through a feature vectorizer called count vectorizer which counts the appearances of each word in one string of text. We ran the data on Multinomial, Bernoulli, and Complement Naive Bayes with the Bernoulli model resulting in the best performance due to it being suitable for discrete features similar to our sentiment label values. 
   </p>
   <p>
     We trained the model with 7500 data points and then validated with 2500 data points. This resulted in our highest accuracy being about 74% which was acceptable but we wanted to see if there was another model that could raise our sentiment analysis accuracy.
@@ -94,7 +94,7 @@ title: Home
     This network is made up of an input layer, hidden layer, and output layer that uses embeddings to determine sentiment values. The bert_en_uncased model we used has L=12 hidden layers (i.e., Transformer blocks), a hidden size of H=768, and A=12 attention heads.
   </p>
   <p>
-    We trained the model with 40,000 tweets and validated with 20,000. The results for this classifier were much more promising with an accuracy value of 95%. Due to the higher accuracy, we decided to use this model to classify our Covid-19 tweets. 
+    We trained the model with 40,000 tweets and validated with 20,000. The results for this classifier were much more promising with an accuracy value of 95%, an overall increase in precision, f1-score, and recall percentages. Due to the higher performance, we decided to use this model to classify our Covid-19 tweets. 
   </p>
   <h5>Classification Results and Analysis</h5>
   <p>
